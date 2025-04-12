@@ -13,7 +13,12 @@
     "errorValidatorEmptyPassword": "Please enter your password",
     "errorValidatorPasswordLeastSix": "Password must be at least 6 characters",
     "errorLoginInvalidCredentials": "Invalid credentials",
+    "errorLoginInvalidTotp": "Invalid verification code",
+    "errorLoginInvalidRecoveryCode": "Invalid recovery code",
+    "errorLoginUserNotFound": "User not found",
     "errorLoginFailed": "Login failed",
     "loginButtonForgotPassword": "Forgot password",
-    "loginErrorEmptyFields": "Please fill in all fields"
+    "loginErrorEmptyFields": "Please fill in all fields",
+    "errorFailedToConnectToServer": "Failed to connect to server",
+    "errorUnknownError": "Unknown error"
 }

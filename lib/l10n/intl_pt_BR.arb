@@ -13,7 +13,12 @@
     "errorValidatorEmptyPassword": "Por favor, informe sua senha",
     "errorValidatorPasswordLeastSix": "A senha deve ter no mínimo 6 caracteres",
     "errorLoginInvalidCredentials": "Credenciais inválidas",
+    "errorLoginInvalidTotp": "Código de verificação inválido",
+    "errorLoginInvalidRecoveryCode": "Código de recuperação inválido",
+    "errorLoginUserNotFound": "Usuário não encontrado",
     "errorLoginFailed": "Erro ao acessar. Tente novamente.",
     "loginButtonForgotPassword": "Esqueci a senha",
-    "loginErrorEmptyFields": "Por favor, preencha todos os campos"
+    "loginErrorEmptyFields": "Por favor, preencha todos os campos",
+    "errorFailedToConnectToServer": "Falha ao conectar ao servidor",
+    "errorUnknownError": "Erro desconhecido"
 }

@@ -92,7 +92,7 @@ def get_seed():
             response = {
                 "message": "Invalid password",
                 "status": "failure",
-                "errorCode": "INVALID_PASSWORD"
+                "errorCode": "INVALID_CREDENTIALS"
             }
             return jsonify(response), 401  # Incorrect password
     else:

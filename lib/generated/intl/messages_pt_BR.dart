@@ -32,11 +32,26 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "commonLogin": MessageLookupByLibrary.simpleMessage("Entrar"),
     "commonPassword": MessageLookupByLibrary.simpleMessage("Senha"),
+    "errorFailedToConnectToServer": MessageLookupByLibrary.simpleMessage(
+      "Falha ao conectar ao servidor",
+    ),
     "errorLoginFailed": MessageLookupByLibrary.simpleMessage(
       "Erro ao acessar. Tente novamente.",
     ),
     "errorLoginInvalidCredentials": MessageLookupByLibrary.simpleMessage(
       "Credenciais inválidas",
+    ),
+    "errorLoginInvalidRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Código de recuperação inválido",
+    ),
+    "errorLoginInvalidTotp": MessageLookupByLibrary.simpleMessage(
+      "Código de verificação inválido",
+    ),
+    "errorLoginUserNotFound": MessageLookupByLibrary.simpleMessage(
+      "Usuário não encontrado",
+    ),
+    "errorUnknownError": MessageLookupByLibrary.simpleMessage(
+      "Erro desconhecido",
     ),
     "errorValidatorEmptyEmail": MessageLookupByLibrary.simpleMessage(
       "Por favor, informe seu e-mail",

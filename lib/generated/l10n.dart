@@ -160,6 +160,36 @@ class S {
     );
   }
 
+  /// `Invalid verification code`
+  String get errorLoginInvalidTotp {
+    return Intl.message(
+      'Invalid verification code',
+      name: 'errorLoginInvalidTotp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid recovery code`
+  String get errorLoginInvalidRecoveryCode {
+    return Intl.message(
+      'Invalid recovery code',
+      name: 'errorLoginInvalidRecoveryCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not found`
+  String get errorLoginUserNotFound {
+    return Intl.message(
+      'User not found',
+      name: 'errorLoginUserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login failed`
   String get errorLoginFailed {
     return Intl.message(
@@ -185,6 +215,26 @@ class S {
     return Intl.message(
       'Please fill in all fields',
       name: 'loginErrorEmptyFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to connect to server`
+  String get errorFailedToConnectToServer {
+    return Intl.message(
+      'Failed to connect to server',
+      name: 'errorFailedToConnectToServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown error`
+  String get errorUnknownError {
+    return Intl.message(
+      'Unknown error',
+      name: 'errorUnknownError',
       desc: '',
       args: [],
     );

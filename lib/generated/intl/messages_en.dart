@@ -30,10 +30,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "commonLogin": MessageLookupByLibrary.simpleMessage("Login"),
     "commonPassword": MessageLookupByLibrary.simpleMessage("Password"),
+    "errorFailedToConnectToServer": MessageLookupByLibrary.simpleMessage(
+      "Failed to connect to server",
+    ),
     "errorLoginFailed": MessageLookupByLibrary.simpleMessage("Login failed"),
     "errorLoginInvalidCredentials": MessageLookupByLibrary.simpleMessage(
       "Invalid credentials",
     ),
+    "errorLoginInvalidRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Invalid recovery code",
+    ),
+    "errorLoginInvalidTotp": MessageLookupByLibrary.simpleMessage(
+      "Invalid verification code",
+    ),
+    "errorLoginUserNotFound": MessageLookupByLibrary.simpleMessage(
+      "User not found",
+    ),
+    "errorUnknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
     "errorValidatorEmptyEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter your email",
     ),

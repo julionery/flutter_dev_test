@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
+import 'package:flutter_dev_test/src/core/di/service_locator.dart';
 import 'package:flutter_dev_test/src/core/foundations/spacing.dart';
 import 'package:flutter_dev_test/src/core/foundations/themes.dart';
 import 'package:flutter_dev_test/src/core/utils/constants/regex.dart';
@@ -16,8 +17,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final serviceLocator = ServiceLocator();
+
     return BlocProvider(
-      create: (_) => LoginCubit(),
+      create: (_) => LoginCubit(serviceLocator.loginUseCase),
       child: const LoginView(),
     );
   }
@@ -112,6 +115,10 @@ class _LoginViewState extends State<LoginView> {
             if (value == null || value.isEmpty) {
               return S.of(context).errorValidatorEmptyEmail;
             }
+
+            // Username admin can't use admin email, just for testing
+            if (value == 'admin') return null;
+
             final emailRegExp = RegExp(kEmailRegEx);
             if (!emailRegExp.hasMatch(value)) {
               return S.of(context).errorValidatorInvalidEmail;
