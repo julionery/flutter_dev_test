@@ -67,7 +67,6 @@ class AppColors {
         onPrimary: white,
         onSecondary: white,
         onSurface: textPrimary,
-        onBackground: textOnBackground,
         onError: white,
         brightness: Brightness.light,
       );

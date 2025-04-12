@@ -17,8 +17,6 @@ class AppTypography {
   // Text Colors - Using the app's color definitions
   static const Color _primaryTextColor = AppColors.textPrimary;
   static const Color _secondaryTextColor = AppColors.textSecondary;
-  static const Color _onBackgroundTextColor = AppColors.textOnBackground;
-  static const Color _lightColor = AppColors.white;
 
   // Display Styles
   static TextStyle get displayLarge => TextStyle(
