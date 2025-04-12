@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
+import 'package:flutter_dev_test/src/core/config/colors.dart';
+import 'package:flutter_dev_test/src/core/config/typography.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,7 +9,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(S.current.home.toLowerCase()),
+      child: Text(
+        S.current.home.toLowerCase(),
+        style: AppTypography.labelLarge.copyWith(
+          color: AppColors.textSecondary,
+        ),
+      ),
     );
   }
 }

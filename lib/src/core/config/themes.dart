@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dev_test/src/core/config/colors.dart';
+import 'package:flutter_dev_test/src/core/config/typography.dart';
 
 class AppTheme {
   static const double defaultPadding = 24.0;
   static const double defaultBorderRadius = 12.0;
 
-  static const _baseColor = Color(0xFF7A5D3E);
+  static const _baseColor = AppColors.primary;
 
   static ThemeData get lightTheme {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _baseColor,
-        brightness: Brightness.light,
-      ),
+      colorScheme: AppColors.lightColorScheme,
       useMaterial3: true,
       fontFamily: 'PlusJakartaSans',
+      textTheme: AppTypography.textTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: _baseColor,
