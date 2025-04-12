@@ -1,4 +1,6 @@
 {
     "@@locale": "en",
-    "appName": "Dev Flutter Test"
+    "appName": "Dev Flutter Test",
+    "home": "Home",
+    "profile": "Profile"
 }
