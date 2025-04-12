@@ -43,14 +43,16 @@ def login():
             logging.warning(f"TOTP input: {totp_code}, TOTP expected: {totp.now()}")
             response = {
                 "message": "Invalid TOTP code",
-                "status": "failure"
+                "status": "failure",
+                "errorCode": "INVALID_TOTP"
             }
             return jsonify(response), 401  # TOTP verification failed
     else:
         logging.warning(f"Invalid credentials for username '{username}'.")
         response = {
             "message": "Invalid credentials",
-            "status": "failure"
+            "status": "failure",
+            "errorCode": "INVALID_CREDENTIALS"
         }
         return jsonify(response), 401  # Invalid credentials
 
@@ -73,25 +75,32 @@ def get_seed():
                 logging.info(f"TOTP secret for username '{username}': {USER_CREDENTIALS[username]['totp_secret']}")
                 response = {
                     "message": "Recovery code and password verified",
-                    "totp_secret": USER_CREDENTIALS[username]["totp_secret"]
+                    "totp_secret": USER_CREDENTIALS[username]["totp_secret"],
+                    "status": "success"
                 }
                 return jsonify(response), 200  # Return the secret if the code is 000010
             else:
                 logging.warning(f"Invalid recovery code for username '{username}'.")
                 response = {
-                    "message": "Invalid recovery code"
+                    "message": "Invalid recovery code",
+                    "status": "failure",
+                    "errorCode": "INVALID_RECOVERY_CODE"
                 }
                 return jsonify(response), 401  # Invalid recovery code
         else:
             logging.warning(f"Incorrect password for username '{username}'.")
             response = {
-                "message": "Invalid password"
+                "message": "Invalid password",
+                "status": "failure",
+                "errorCode": "INVALID_PASSWORD"
             }
             return jsonify(response), 401  # Incorrect password
     else:
         logging.warning(f"Username '{username}' not found for recovery.")
         response = {
-            "message": "User not found"
+            "message": "User not found",
+            "status": "failure",
+            "errorCode": "USER_NOT_FOUND"
         }
         return jsonify(response), 404  # User not found
 
