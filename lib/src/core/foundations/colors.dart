@@ -13,10 +13,11 @@ class AppColors {
   static const Color textPrimary = Color(0xFF212229);
   static const Color textSecondary = Color(0xFF9496AA);
   static const Color textOnBackground = Color(0xFF494A57);
+  static const Color textInvert = Color(0xFFFFFFFF);
 
   // Background Colors
   static const Color background = Color(0xFFFFFFFF);
-  static const Color surfaceLight = Color(0xFFF8F9FA);
+  static const Color surfaceLight = Color(0xFFF8F8FA);
   static const Color surface = Color(0xFFFFFFFF);
 
   // State Colors

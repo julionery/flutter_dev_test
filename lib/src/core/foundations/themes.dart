@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dev_test/src/core/foundations/colors.dart';
+import 'package:flutter_dev_test/src/core/foundations/spacing.dart';
 import 'package:flutter_dev_test/src/core/foundations/typography.dart';
 
 class AppTheme {
-  static const double defaultPadding = 24.0;
-  static const double defaultBorderRadius = 12.0;
-
-  static const _baseColor = AppColors.primary;
+  static const double defaultPadding = AppSpacing.$250;
+  static const double defaultBorderRadius = AppSpacing.$100;
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -16,28 +15,58 @@ class AppTheme {
       textTheme: AppTypography.textTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: _baseColor,
-          foregroundColor: Colors.white,
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.textInvert,
           elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          textStyle: AppTypography.labelMedium.copyWith(fontSize: 13, fontWeight: AppTypography.semiBold),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.$200, vertical: AppSpacing.$175),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(defaultBorderRadius),
           ),
         ),
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.surfaceLight,
+        labelStyle: AppTypography.labelMedium.copyWith(color: AppColors.textOnBackground),
+        hintStyle: AppTypography.labelMedium.copyWith(color: AppColors.textOnBackground),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.$150, vertical: AppSpacing.$175),
+      ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: _baseColor,
+          foregroundColor: AppColors.primary,
+          textStyle: AppTypography.labelMedium.copyWith(
+            fontSize: 13,
+            fontWeight: AppTypography.semiBold,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(defaultBorderRadius),
+          ),
+          alignment: Alignment.center,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: _baseColor,
-          side: const BorderSide(color: _baseColor),
+          foregroundColor: AppColors.primary,
+          side: const BorderSide(color: AppColors.primary),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(defaultBorderRadius),
           ),
         ),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: AppColors.textPrimary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(defaultBorderRadius),
+        ),
+        contentTextStyle: AppTypography.labelMedium.copyWith(color: AppColors.textInvert),
+        elevation: 6,
+        insetPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.$250, vertical: AppSpacing.$225),
       ),
     );
   }

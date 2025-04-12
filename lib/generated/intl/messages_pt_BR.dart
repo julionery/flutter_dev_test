@@ -23,7 +23,40 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("Dev Flutter Test"),
+    "commonEmail": MessageLookupByLibrary.simpleMessage("E-mail"),
+    "commonHintEmail": MessageLookupByLibrary.simpleMessage(
+      "Digite seu e-mail",
+    ),
+    "commonHintPassword": MessageLookupByLibrary.simpleMessage(
+      "Digite sua senha",
+    ),
+    "commonLogin": MessageLookupByLibrary.simpleMessage("Entrar"),
+    "commonPassword": MessageLookupByLibrary.simpleMessage("Senha"),
+    "errorLoginFailed": MessageLookupByLibrary.simpleMessage(
+      "Erro ao acessar. Tente novamente.",
+    ),
+    "errorLoginInvalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "Credenciais inválidas",
+    ),
+    "errorValidatorEmptyEmail": MessageLookupByLibrary.simpleMessage(
+      "Por favor, informe seu e-mail",
+    ),
+    "errorValidatorEmptyPassword": MessageLookupByLibrary.simpleMessage(
+      "Por favor, informe sua senha",
+    ),
+    "errorValidatorInvalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Por favor, informe um e-mail válido",
+    ),
+    "errorValidatorPasswordLeastSix": MessageLookupByLibrary.simpleMessage(
+      "A senha deve ter no mínimo 6 caracteres",
+    ),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "loginButtonForgotPassword": MessageLookupByLibrary.simpleMessage(
+      "Esqueci a senha",
+    ),
+    "loginErrorEmptyFields": MessageLookupByLibrary.simpleMessage(
+      "Por favor, preencha todos os campos",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
   };
 }

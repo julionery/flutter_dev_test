@@ -74,6 +74,121 @@ class S {
   String get profile {
     return Intl.message('Profile', name: 'profile', desc: '', args: []);
   }
+
+  /// `Login`
+  String get commonLogin {
+    return Intl.message('Login', name: 'commonLogin', desc: '', args: []);
+  }
+
+  /// `Password`
+  String get commonPassword {
+    return Intl.message('Password', name: 'commonPassword', desc: '', args: []);
+  }
+
+  /// `E-mail`
+  String get commonEmail {
+    return Intl.message('E-mail', name: 'commonEmail', desc: '', args: []);
+  }
+
+  /// `Enter your email`
+  String get commonHintEmail {
+    return Intl.message(
+      'Enter your email',
+      name: 'commonHintEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get commonHintPassword {
+    return Intl.message(
+      'Enter your password',
+      name: 'commonHintPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email`
+  String get errorValidatorEmptyEmail {
+    return Intl.message(
+      'Please enter your email',
+      name: 'errorValidatorEmptyEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email`
+  String get errorValidatorInvalidEmail {
+    return Intl.message(
+      'Please enter a valid email',
+      name: 'errorValidatorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password`
+  String get errorValidatorEmptyPassword {
+    return Intl.message(
+      'Please enter your password',
+      name: 'errorValidatorEmptyPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters`
+  String get errorValidatorPasswordLeastSix {
+    return Intl.message(
+      'Password must be at least 6 characters',
+      name: 'errorValidatorPasswordLeastSix',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid credentials`
+  String get errorLoginInvalidCredentials {
+    return Intl.message(
+      'Invalid credentials',
+      name: 'errorLoginInvalidCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed`
+  String get errorLoginFailed {
+    return Intl.message(
+      'Login failed',
+      name: 'errorLoginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot password`
+  String get loginButtonForgotPassword {
+    return Intl.message(
+      'Forgot password',
+      name: 'loginButtonForgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in all fields`
+  String get loginErrorEmptyFields {
+    return Intl.message(
+      'Please fill in all fields',
+      name: 'loginErrorEmptyFields',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

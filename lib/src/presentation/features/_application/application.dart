@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
 import 'package:flutter_dev_test/src/core/foundations/themes.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/navigation_cubit.dart';
-import 'package:flutter_dev_test/src/presentation/features/main/main_page.dart';
+import 'package:flutter_dev_test/src/presentation/features/sign/login/login_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        home: MainPage(),
+        home: LoginPage(),
       ),
     );
   }

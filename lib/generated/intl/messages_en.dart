@@ -23,7 +23,36 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("Dev Flutter Test"),
+    "commonEmail": MessageLookupByLibrary.simpleMessage("E-mail"),
+    "commonHintEmail": MessageLookupByLibrary.simpleMessage("Enter your email"),
+    "commonHintPassword": MessageLookupByLibrary.simpleMessage(
+      "Enter your password",
+    ),
+    "commonLogin": MessageLookupByLibrary.simpleMessage("Login"),
+    "commonPassword": MessageLookupByLibrary.simpleMessage("Password"),
+    "errorLoginFailed": MessageLookupByLibrary.simpleMessage("Login failed"),
+    "errorLoginInvalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "Invalid credentials",
+    ),
+    "errorValidatorEmptyEmail": MessageLookupByLibrary.simpleMessage(
+      "Please enter your email",
+    ),
+    "errorValidatorEmptyPassword": MessageLookupByLibrary.simpleMessage(
+      "Please enter your password",
+    ),
+    "errorValidatorInvalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Please enter a valid email",
+    ),
+    "errorValidatorPasswordLeastSix": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 6 characters",
+    ),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "loginButtonForgotPassword": MessageLookupByLibrary.simpleMessage(
+      "Forgot password",
+    ),
+    "loginErrorEmptyFields": MessageLookupByLibrary.simpleMessage(
+      "Please fill in all fields",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
   };
 }

@@ -2,5 +2,18 @@
     "@@locale": "en",
     "appName": "Dev Flutter Test",
     "home": "Home",
-    "profile": "Profile"
+    "profile": "Profile",
+    "commonLogin": "Login",
+    "commonPassword": "Password",
+    "commonEmail": "E-mail",
+    "commonHintEmail": "Enter your email",
+    "commonHintPassword": "Enter your password",
+    "errorValidatorEmptyEmail": "Please enter your email",
+    "errorValidatorInvalidEmail": "Please enter a valid email",
+    "errorValidatorEmptyPassword": "Please enter your password",
+    "errorValidatorPasswordLeastSix": "Password must be at least 6 characters",
+    "errorLoginInvalidCredentials": "Invalid credentials",
+    "errorLoginFailed": "Login failed",
+    "loginButtonForgotPassword": "Forgot password",
+    "loginErrorEmptyFields": "Please fill in all fields"
 }
