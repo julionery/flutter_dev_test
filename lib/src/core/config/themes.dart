@@ -13,6 +13,7 @@ class AppTheme {
         brightness: Brightness.light,
       ),
       useMaterial3: true,
+      fontFamily: 'PlusJakartaSans',
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: _baseColor,
