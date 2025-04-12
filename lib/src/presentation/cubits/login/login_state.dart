@@ -9,6 +9,7 @@ class LoginState extends Equatable {
   final LoginStatus status;
   final String? errorMessage;
   final UserEntity? user;
+  final bool needsRecoverySecret;
 
   const LoginState({
     this.email = '',
@@ -16,6 +17,7 @@ class LoginState extends Equatable {
     this.status = LoginStatus.initial,
     this.errorMessage,
     this.user,
+    this.needsRecoverySecret = false,
   });
 
   bool get isValid => email.isNotEmpty && password.isNotEmpty;
@@ -26,6 +28,7 @@ class LoginState extends Equatable {
     LoginStatus? status,
     String? errorMessage,
     UserEntity? user,
+    bool? needsRecoverySecret,
   }) {
     return LoginState(
       email: email ?? this.email,
@@ -33,9 +36,10 @@ class LoginState extends Equatable {
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       user: user ?? this.user,
+      needsRecoverySecret: needsRecoverySecret ?? this.needsRecoverySecret,
     );
   }
 
   @override
-  List<Object?> get props => [email, password, status, errorMessage, user];
+  List<Object?> get props => [email, password, status, errorMessage, user, needsRecoverySecret];
 }

@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return userModel;
     } on UnauthorizedException catch (e) {
       if (e.isInvalidTotp) {
-        throw AppException(S.current.errorLoginInvalidTotp);
+        throw InvalidTOTPException(S.current.errorLoginInvalidTotp);
       } else if (e.isInvalidCredentials) {
         throw AppException(S.current.errorLoginInvalidCredentials);
       } else if (e.isInvalidRecoveryCode) {

@@ -7,7 +7,9 @@ import 'package:flutter_dev_test/src/core/foundations/themes.dart';
 import 'package:flutter_dev_test/src/core/utils/constants/regex.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/login/login_cubit.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/login/login_state.dart';
+import 'package:flutter_dev_test/src/presentation/features/main/main_page.dart';
 import 'package:flutter_dev_test/src/presentation/features/sign/login/widgets/login_image.dart';
+import 'package:flutter_dev_test/src/presentation/features/sign/recovery_secret/recovery_secret_page.dart';
 import 'package:flutter_dev_test/src/presentation/widgets/buttons/app_elevated_button.dart';
 import 'package:flutter_dev_test/src/presentation/widgets/snack_bars/app_snack_bar.dart';
 import 'package:flutter_dev_test/src/presentation/widgets/text_field/app_text_field.dart';
@@ -50,12 +52,20 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) => previous.status != current.status || previous.needsRecoverySecret != current.needsRecoverySecret,
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
-          // TODO(julio): implement success redirect
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const MainPage()),
+          );
         } else if (state.status == LoginStatus.failure) {
-          AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorLoginFailed);
+          if (state.needsRecoverySecret) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const RecoverySecretPage()),
+            );
+          } else {
+            AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorLoginFailed);
+          }
         }
       },
       child: Scaffold(

@@ -42,3 +42,8 @@ class NetworkException extends AppException {
 class CacheException extends AppException {
   CacheException(super.message);
 }
+
+/// Exception that should be thrown when the user doesn't have a valid TOTP
+class InvalidTOTPException extends AppException {
+  InvalidTOTPException(super.message);
+}
