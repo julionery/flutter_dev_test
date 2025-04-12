@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
-import 'package:flutter_dev_test/src/core/config/colors.dart';
-import 'package:flutter_dev_test/src/core/config/typography.dart';
+import 'package:flutter_dev_test/src/core/foundations/colors.dart';
+import 'package:flutter_dev_test/src/core/foundations/typography.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

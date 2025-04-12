@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dev_test/src/core/config/colors.dart';
-import 'package:flutter_dev_test/src/core/config/typography.dart';
+import 'package:flutter_dev_test/src/core/foundations/colors.dart';
+import 'package:flutter_dev_test/src/core/foundations/typography.dart';
 
 class AppTheme {
   static const double defaultPadding = 24.0;

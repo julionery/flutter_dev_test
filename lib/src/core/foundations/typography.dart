@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dev_test/src/core/config/colors.dart';
+import 'package:flutter_dev_test/src/core/foundations/colors.dart';
 
 /// Typography class that defines text styles for the application
 class AppTypography {
