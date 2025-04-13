@@ -20,5 +20,9 @@
     "loginButtonForgotPassword": "Forgot password",
     "loginErrorEmptyFields": "Please fill in all fields",
     "errorFailedToConnectToServer": "Failed to connect to server",
-    "errorUnknownError": "Unknown error"
+    "errorUnknownError": "Unknown error",
+    "resendCodeButtonText": "I didn't receive the code",
+    "commonConfirm": "Confirm",
+    "pageRecoverySecretTitle": "Verification",
+    "pageRecoverySecretDescription": "Enter the code you were sent:"
 }

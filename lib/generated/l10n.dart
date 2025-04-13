@@ -239,6 +239,41 @@ class S {
       args: [],
     );
   }
+
+  /// `I didn't receive the code`
+  String get resendCodeButtonText {
+    return Intl.message(
+      'I didn\'t receive the code',
+      name: 'resendCodeButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get commonConfirm {
+    return Intl.message('Confirm', name: 'commonConfirm', desc: '', args: []);
+  }
+
+  /// `Verification`
+  String get pageRecoverySecretTitle {
+    return Intl.message(
+      'Verification',
+      name: 'pageRecoverySecretTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the code you were sent:`
+  String get pageRecoverySecretDescription {
+    return Intl.message(
+      'Enter the code you were sent:',
+      name: 'pageRecoverySecretDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

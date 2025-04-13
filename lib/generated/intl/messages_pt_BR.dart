@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("Dev Flutter Test"),
+    "commonConfirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
     "commonEmail": MessageLookupByLibrary.simpleMessage("E-mail"),
     "commonHintEmail": MessageLookupByLibrary.simpleMessage(
       "Digite seu e-mail",
@@ -72,6 +73,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginErrorEmptyFields": MessageLookupByLibrary.simpleMessage(
       "Por favor, preencha todos os campos",
     ),
+    "pageRecoverySecretDescription": MessageLookupByLibrary.simpleMessage(
+      "Insira o código que foi enviado:",
+    ),
+    "pageRecoverySecretTitle": MessageLookupByLibrary.simpleMessage(
+      "Verificação",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
+    "resendCodeButtonText": MessageLookupByLibrary.simpleMessage(
+      "Não recebi o código",
+    ),
   };
 }
