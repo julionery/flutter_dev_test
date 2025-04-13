@@ -54,4 +54,36 @@ class AuthRepositoryImpl implements AuthRepository {
       return null;
     }
   }
+
+  @override
+  Future<String> verifyRecoveryCode(String code) async {
+    try {
+      return await remoteDataSource.verifyRecoveryCode(code);
+    } on UnauthorizedException catch (e) {
+      if (e.isInvalidTotp) {
+        throw InvalidTOTPException(S.current.errorLoginInvalidTotp);
+      } else if (e.isInvalidCredentials) {
+        throw AppException(S.current.errorLoginInvalidCredentials);
+      } else if (e.isInvalidRecoveryCode) {
+        throw AppException(S.current.errorLoginInvalidRecoveryCode);
+      } else {
+        throw AppException(e.message);
+      }
+    } on NotFoundException catch (e) {
+      if (e.isUserNotFound) {
+        throw AppException(S.current.errorLoginUserNotFound);
+      } else {
+        throw AppException(e.message);
+      }
+    } on ServerException catch (e) {
+      throw AppException(e.message);
+    } catch (e) {
+      throw AppException(S.current.errorUnknownError);
+    }
+  }
+
+  @override
+  Future<void> resendRecoveryCode() async {
+    await remoteDataSource.resendRecoveryCode();
+  }
 }

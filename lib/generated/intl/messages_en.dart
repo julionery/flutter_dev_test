@@ -47,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorLoginUserNotFound": MessageLookupByLibrary.simpleMessage(
       "User not found",
     ),
+    "errorRecoveryCodeInvalid": MessageLookupByLibrary.simpleMessage(
+      "Invalid verification code",
+    ),
     "errorUnknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
     "errorValidatorEmptyEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter your email",
@@ -74,6 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Verification",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "recoveryCodeResent": MessageLookupByLibrary.simpleMessage(
+      "Code resent successfully!",
+    ),
     "resendCodeButtonText": MessageLookupByLibrary.simpleMessage(
       "I didn\'t receive the code",
     ),

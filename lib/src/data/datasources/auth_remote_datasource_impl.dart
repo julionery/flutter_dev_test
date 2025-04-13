@@ -66,4 +66,49 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserModel?> getCurrentUser() async {
     return null;
   }
+
+  @override
+  Future<String> verifyRecoveryCode(String code) async {
+    try {
+      final response = await client.post(
+        Uri.parse('$baseUrl${ApiConstants.recoverySecretEndpoint}'),
+        headers: ApiConstants.headers,
+        body: jsonEncode({
+          'code': code,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['totp_secret'];
+      } else {
+        final Map<String, dynamic> errorData = {};
+
+        if (response.body.isNotEmpty) {
+          errorData.addAll(jsonDecode(response.body));
+        }
+
+        final String errorMessage = errorData['message'] ?? S.current.errorUnknownError;
+        final String? errorCode = errorData['errorCode'];
+
+        if (response.statusCode == 401) {
+          throw UnauthorizedException(errorMessage, errorCode: errorCode);
+        } else if (response.statusCode == 404) {
+          throw NotFoundException(errorMessage, errorCode: errorCode);
+        } else {
+          throw ServerException(errorMessage);
+        }
+      }
+    } catch (e) {
+      if (e is UnauthorizedException || e is NotFoundException || e is ServerException) {
+        rethrow;
+      }
+      throw ServerException(S.current.errorFailedToConnectToServer);
+    }
+  }
+
+  @override
+  Future<void> resendRecoveryCode() async {
+    return;
+  }
 }

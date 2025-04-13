@@ -30,6 +30,9 @@ class _AppOTPTextFieldState extends State<AppOTPTextField> {
   void initState() {
     super.initState();
     _updateControllersFromValue();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _focusNodes.first.requestFocus();
+    });
   }
 
   @override
@@ -150,7 +153,7 @@ class _DigitFieldState extends State<DigitField> {
         showCursor: true,
         enableInteractiveSelection: true,
         inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
+          LengthLimitingTextInputFormatter(2),
           FilteringTextInputFormatter.digitsOnly,
         ],
         onChanged: _handleChange,
@@ -165,12 +168,14 @@ class _DigitFieldState extends State<DigitField> {
   }
 
   void _handleChange(String value) {
-    if (value.isNotEmpty) {
-      widget.onChanged?.call(value);
-      if (widget.nextFocusNode != null) {
-        widget.nextFocusNode!.requestFocus();
+    if (value.isNotEmpty && widget.nextFocusNode != null) {
+      widget.nextFocusNode!.requestFocus();
+    } else {
+      if (value.isNotEmpty) {
+        widget.controller.text = value[value.length - 1];
       }
     }
+    widget.onChanged?.call(value);
   }
 
   KeyEventResult _handleKeyPress(KeyEvent event) {

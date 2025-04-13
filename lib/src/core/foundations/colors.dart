@@ -16,6 +16,9 @@ class AppColors {
   static const Color textOnBackground = Color(0xFF494A57);
   static const Color textInvert = Color(0xFFFFFFFF);
 
+  // Border Colors
+  static const Color border = Color(0xFFE7E7EF);
+
   // Background Colors
   static const Color background = Color(0xFFFFFFFF);
   static const Color surfaceLight = Color(0xFFF8F8FA);

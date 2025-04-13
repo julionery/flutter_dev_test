@@ -8,6 +8,8 @@ class ApiConstants {
   static const String loginEndpoint = '/auth/login';
   static const String logoutEndpoint = '/auth/logout';
   static const String userEndpoint = '/auth/user';
+  static const String recoverySecretEndpoint = '/auth/recovery-secret';
+  static const String resendRecoveryCodeEndpoint = '/auth/resend-code';
 
   // Headers
   static const Map<String, String> headers = {

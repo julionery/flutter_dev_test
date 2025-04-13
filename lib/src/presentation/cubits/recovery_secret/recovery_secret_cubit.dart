@@ -1,9 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
+import 'package:flutter_dev_test/src/core/utils/exceptions/app_exceptions.dart';
+import 'package:flutter_dev_test/src/domain/usecases/resend_recovery_code_usecase.dart';
+import 'package:flutter_dev_test/src/domain/usecases/verify_recovery_code_usecase.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/recovery_secret/recovery_secret_state.dart';
 
 class RecoverySecretCubit extends Cubit<RecoverySecretState> {
-  RecoverySecretCubit() : super(const RecoverySecretState());
+  final VerifyRecoveryCodeUseCase _verifyRecoveryCodeUseCase;
+  final ResendRecoveryCodeUseCase _resendRecoveryCodeUseCase;
+
+  RecoverySecretCubit({
+    required VerifyRecoveryCodeUseCase verifyRecoveryCodeUseCase,
+    required ResendRecoveryCodeUseCase resendRecoveryCodeUseCase,
+  }) : _verifyRecoveryCodeUseCase = verifyRecoveryCodeUseCase,
+       _resendRecoveryCodeUseCase = resendRecoveryCodeUseCase,
+       super(const RecoverySecretState());
 
   void codeChanged(String value) {
     emit(state.copyWith(code: value));
@@ -12,7 +23,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
   Future<void> submitCode() async {
     if (!state.isValid) {
       emit(state.copyWith(
-        errorMessage: S.current.errorUnknownError,
+        errorMessage: S.current.errorRecoveryCodeInvalid,
         status: RecoverySecretStatus.failure,
       ));
       return;
@@ -21,17 +32,42 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
     emit(state.copyWith(status: RecoverySecretStatus.loading));
 
     try {
-      await Future.delayed(const Duration(seconds: 5));
-      emit(state.copyWith(status: RecoverySecretStatus.failure));
+      await _verifyRecoveryCodeUseCase(state.code);
+      emit(state.copyWith(status: RecoverySecretStatus.success));
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        status: RecoverySecretStatus.failure,
+        errorMessage: e.message,
+      ));
     } catch (e) {
       emit(state.copyWith(
         status: RecoverySecretStatus.failure,
-        errorMessage: e.toString(),
+        errorMessage: S.current.errorUnknownError,
       ));
     }
   }
 
-  Future<void> resendCode() async {}
+  Future<void> resendCode() async {
+    emit(state.copyWith(status: RecoverySecretStatus.loading));
+    
+    try {
+      await _resendRecoveryCodeUseCase();
+      emit(state.copyWith(
+        status: RecoverySecretStatus.initial,
+        resendCodeSuccess: true,
+      ));
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        status: RecoverySecretStatus.failure,
+        errorMessage: e.message,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: RecoverySecretStatus.failure,
+        errorMessage: S.current.errorUnknownError,
+      ));
+    }
+  }
 
   void resetState() {
     emit(const RecoverySecretState());

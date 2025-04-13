@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dev_test/src/core/foundations/colors.dart';
 import 'package:flutter_dev_test/src/core/foundations/spacing.dart';
 
 class AppBackButton extends StatelessWidget {
@@ -18,6 +19,7 @@ class AppBackButton extends StatelessWidget {
           icon: Icon(
             Icons.chevron_left,
             size: AppSpacing.$300,
+            color: AppColors.primary,
           ),
         ),
       ),

@@ -24,5 +24,7 @@
     "resendCodeButtonText": "Não recebi o código",
     "commonConfirm": "Confirmar",
     "pageRecoverySecretTitle": "Verificação",
-    "pageRecoverySecretDescription": "Insira o código que foi enviado:"
+    "pageRecoverySecretDescription": "Insira o código que foi enviado:",
+    "recoveryCodeResent": "Código reenviado com sucesso!",
+    "errorRecoveryCodeInvalid": "Código de verificação inválido"
 }

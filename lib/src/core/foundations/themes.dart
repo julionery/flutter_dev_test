@@ -17,6 +17,8 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.textInvert,
+          disabledBackgroundColor: AppColors.primary.withOpacity(0.5),
+          disabledForegroundColor: AppColors.textInvert,
           elevation: 2,
           textStyle: AppTypography.labelMedium.copyWith(fontSize: 13, fontWeight: AppTypography.semiBold),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.$200, vertical: AppSpacing.$175),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dev_test/generated/l10n.dart';
+import 'package:flutter_dev_test/src/core/di/service_locator.dart';
 import 'package:flutter_dev_test/src/core/foundations/colors.dart';
 import 'package:flutter_dev_test/src/core/foundations/spacing.dart';
 import 'package:flutter_dev_test/src/core/foundations/typography.dart';
@@ -17,8 +18,9 @@ class RecoverySecretPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final serviceLocator = ServiceLocator();
     return BlocProvider(
-      create: (_) => RecoverySecretCubit(),
+      create: (_) => serviceLocator.recoverySecretCubit,
       child: const RecoverySecretView(),
     );
   }
@@ -35,12 +37,17 @@ class _RecoverySecretViewState extends State<RecoverySecretView> with SingleTick
   @override
   Widget build(BuildContext context) {
     return BlocListener<RecoverySecretCubit, RecoverySecretState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) => previous.status != current.status || previous.resendCodeSuccess != current.resendCodeSuccess,
       listener: (context, state) {
         if (state.status == RecoverySecretStatus.success) {
           Navigator.of(context).pop();
         } else if (state.status == RecoverySecretStatus.failure) {
           AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorUnknownError);
+        }
+
+        if (state.resendCodeSuccess) {
+          AppSnackBar.showSuccess(context, S.of(context).recoveryCodeResent);
+          context.read<RecoverySecretCubit>().resetState();
         }
       },
       child: Scaffold(
@@ -115,6 +122,10 @@ class _RecoverySecretViewState extends State<RecoverySecretView> with SingleTick
           value: state.code,
           onChanged: (value) {
             context.read<RecoverySecretCubit>().codeChanged(value);
+            if (value.length == 6) {
+              FocusScope.of(context).unfocus();
+              _submitRecoveryCode();
+            }
           },
         );
       },

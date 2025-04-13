@@ -274,6 +274,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Code resent successfully!`
+  String get recoveryCodeResent {
+    return Intl.message(
+      'Code resent successfully!',
+      name: 'recoveryCodeResent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid verification code`
+  String get errorRecoveryCodeInvalid {
+    return Intl.message(
+      'Invalid verification code',
+      name: 'errorRecoveryCodeInvalid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
