@@ -8,6 +8,7 @@ class AppColors {
   // Brand Colors
   static const Color primary = Color(0xFF7A5D3E);
   static const Color secondary = Color(0xFF9496AA);
+  static const Color disabled = Color(0xFFBBAA98);
 
   // Text Colors
   static const Color textPrimary = Color(0xFF212229);

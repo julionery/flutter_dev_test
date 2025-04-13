@@ -7,9 +7,16 @@ import 'package:flutter_dev_test/src/core/foundations/typography.dart';
 const _kOtpSize = Size(52, 54);
 
 class AppOTPTextField extends StatefulWidget {
-  const AppOTPTextField({super.key, this.onChanged});
+  const AppOTPTextField({
+    super.key,
+    this.onChanged,
+    this.value = '',
+    this.enabled = true,
+  });
 
   final ValueChanged<String>? onChanged;
+  final String value;
+  final bool enabled;
 
   @override
   State<AppOTPTextField> createState() => _AppOTPTextFieldState();
@@ -18,6 +25,33 @@ class AppOTPTextField extends StatefulWidget {
 class _AppOTPTextFieldState extends State<AppOTPTextField> {
   final List<TextEditingController> _codeControllers = List.generate(6, (_) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+
+  @override
+  void initState() {
+    super.initState();
+    _updateControllersFromValue();
+  }
+
+  @override
+  void didUpdateWidget(AppOTPTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.value != widget.value) {
+      _updateControllersFromValue();
+    }
+  }
+
+  void _updateControllersFromValue() {
+    final digits = widget.value.split('');
+
+    for (var controller in _codeControllers) {
+      controller.text = '';
+    }
+
+    for (int i = 0; i < digits.length && i < _codeControllers.length; i++) {
+      _codeControllers[i].text = digits[i];
+    }
+  }
 
   @override
   void dispose() {
@@ -53,6 +87,7 @@ class _AppOTPTextFieldState extends State<AppOTPTextField> {
             nextFocusNode: index < 5 ? _focusNodes[index + 1] : null,
             previousFocusNode: index > 0 ? _focusNodes[index - 1] : null,
             textStyle: AppTypography.titleLarge,
+            enabled: widget.enabled,
             onChanged: _onChange,
           ),
         ),
@@ -76,6 +111,7 @@ class DigitField extends StatefulWidget {
   final FocusNode? previousFocusNode;
   final TextStyle? textStyle;
   final ValueChanged<String>? onChanged;
+  final bool enabled;
 
   const DigitField({
     super.key,
@@ -85,6 +121,7 @@ class DigitField extends StatefulWidget {
     this.previousFocusNode,
     this.textStyle,
     this.onChanged,
+    this.enabled = true,
   });
 
   @override
@@ -102,7 +139,10 @@ class _DigitFieldState extends State<DigitField> {
         focusNode: widget.focusNode,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: widget.textStyle,
+        enabled: widget.enabled,
+        style: widget.textStyle?.copyWith(
+          color: widget.enabled ? AppColors.textPrimary : AppColors.textSecondary,
+        ),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(AppSpacing.$75),
           border: InputBorder.none,

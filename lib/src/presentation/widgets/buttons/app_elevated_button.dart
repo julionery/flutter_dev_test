@@ -17,7 +17,7 @@ class AppElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       child: isLoading
           ? const SizedBox(
               height: AppSpacing.$250,
