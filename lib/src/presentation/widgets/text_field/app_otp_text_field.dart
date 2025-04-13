@@ -73,26 +73,14 @@ class _AppOTPTextFieldState extends State<AppOTPTextField> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         6,
-        (index) => Container(
-          height: _kOtpSize.height,
-          width: _kOtpSize.width,
-          padding: EdgeInsets.all(AppSpacing.$25),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              color: AppColors.primary,
-              width: 1.5,
-            ),
-          ),
-          child: DigitField(
-            controller: _codeControllers[index],
-            focusNode: _focusNodes[index],
-            nextFocusNode: index < 5 ? _focusNodes[index + 1] : null,
-            previousFocusNode: index > 0 ? _focusNodes[index - 1] : null,
-            textStyle: AppTypography.titleLarge,
-            enabled: widget.enabled,
-            onChanged: _onChange,
-          ),
+        (index) => _DigitFieldContainer(
+          controller: _codeControllers[index],
+          focusNode: _focusNodes[index],
+          nextFocusNode: index < 5 ? _focusNodes[index + 1] : null,
+          previousFocusNode: index > 0 ? _focusNodes[index - 1] : null,
+          textStyle: AppTypography.titleLarge,
+          enabled: widget.enabled,
+          onChanged: _onChange,
         ),
       ),
     );
@@ -107,7 +95,7 @@ class _AppOTPTextFieldState extends State<AppOTPTextField> {
   }
 }
 
-class DigitField extends StatefulWidget {
+class _DigitFieldContainer extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final FocusNode? nextFocusNode;
@@ -116,8 +104,7 @@ class DigitField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final bool enabled;
 
-  const DigitField({
-    super.key,
+  const _DigitFieldContainer({
     required this.controller,
     required this.focusNode,
     this.nextFocusNode,
@@ -128,10 +115,83 @@ class DigitField extends StatefulWidget {
   });
 
   @override
-  State<DigitField> createState() => _DigitFieldState();
+  State<_DigitFieldContainer> createState() => _DigitFieldContainerState();
 }
 
-class _DigitFieldState extends State<DigitField> {
+class _DigitFieldContainerState extends State<_DigitFieldContainer> {
+  bool _hasFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    widget.focusNode.removeListener(_onFocusChange);
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      _hasFocus = widget.focusNode.hasFocus;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool hasValue = widget.controller.text.isNotEmpty;
+    final bool shouldUsePrimaryColor = _hasFocus || hasValue;
+
+    return Container(
+      height: _kOtpSize.height,
+      width: _kOtpSize.width,
+      padding: EdgeInsets.all(AppSpacing.$25),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: shouldUsePrimaryColor ? AppColors.primary : AppColors.border,
+          width: 1.5,
+        ),
+      ),
+      child: _DigitField(
+        controller: widget.controller,
+        focusNode: widget.focusNode,
+        nextFocusNode: widget.nextFocusNode,
+        previousFocusNode: widget.previousFocusNode,
+        textStyle: widget.textStyle,
+        enabled: widget.enabled,
+        onChanged: widget.onChanged,
+      ),
+    );
+  }
+}
+
+class _DigitField extends StatefulWidget {
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final FocusNode? nextFocusNode;
+  final FocusNode? previousFocusNode;
+  final TextStyle? textStyle;
+  final ValueChanged<String>? onChanged;
+  final bool enabled;
+
+  const _DigitField({
+    required this.controller,
+    required this.focusNode,
+    this.nextFocusNode,
+    this.previousFocusNode,
+    this.textStyle,
+    this.onChanged,
+    this.enabled = true,
+  });
+
+  @override
+  State<_DigitField> createState() => _DigitFieldState();
+}
+
+class _DigitFieldState extends State<_DigitField> {
   @override
   Widget build(BuildContext context) {
     return KeyboardListener(
