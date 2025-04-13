@@ -294,6 +294,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Recovery code successful`
+  String get recoveryCodeSuccessful {
+    return Intl.message(
+      'Recovery code successful',
+      name: 'recoveryCodeSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -80,6 +80,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "recoveryCodeResent": MessageLookupByLibrary.simpleMessage(
       "Code resent successfully!",
     ),
+    "recoveryCodeSuccessful": MessageLookupByLibrary.simpleMessage(
+      "Recovery code successful",
+    ),
     "resendCodeButtonText": MessageLookupByLibrary.simpleMessage(
       "I didn\'t receive the code",
     ),

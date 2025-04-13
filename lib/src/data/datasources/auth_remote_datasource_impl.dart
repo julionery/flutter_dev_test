@@ -17,7 +17,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   });
 
   @override
-  Future<UserModel> login(String email, String password) async {
+  Future<UserModel> login(String email, String password, {String? totpCode}) async {
     try {
       final response = await client.post(
         Uri.parse('$baseUrl${ApiConstants.loginEndpoint}'),
@@ -25,12 +25,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         body: jsonEncode({
           'username': email,
           'password': password,
+          'totp_code': totpCode,
         }),
       );
 
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        return UserModel.fromJson(jsonData);
+        return UserModel(id: '', name: 'Júlio Nery', email: email);
       } else {
         final Map<String, dynamic> errorData = {};
 

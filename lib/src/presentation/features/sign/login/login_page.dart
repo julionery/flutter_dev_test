@@ -62,11 +62,7 @@ class _LoginViewState extends State<LoginView> {
           if (state.needsRecoverySecret) {
             final email = _emailController.text;
             final password = _passwordController.text;
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => RecoverySecretPage(email: email, password: password),
-              ),
-            );
+            _navigateToRecoveryPage(email, password);
           } else {
             AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorLoginFailed);
           }
@@ -203,10 +199,27 @@ class _LoginViewState extends State<LoginView> {
 
   void _doLogin() {
     if (_formKey.currentState?.validate() ?? false) {
-      FocusScope.of(context).unfocus();
+      _passwordFocusNode.unfocus();
       context.read<LoginCubit>().login();
     }
   }
 
   void _doForgotPassword() {}
+
+  Future<void> _navigateToRecoveryPage(String email, String password) async {
+    final recoveryToken = await Navigator.of(context).push<String>(
+      MaterialPageRoute(
+        builder: (context) => RecoverySecretPage(email: email, password: password),
+      ),
+    );
+
+    if (recoveryToken != null && recoveryToken.isNotEmpty) {
+      if (context.mounted) {
+        context.read<LoginCubit>().setRecoveryToken(recoveryToken);
+        AppSnackBar.showSuccess(context, S.of(context).recoveryCodeSuccessful);
+        _passwordFocusNode.unfocus();
+        context.read<LoginCubit>().login();
+      }
+    }
+  }
 }

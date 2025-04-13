@@ -42,8 +42,11 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
     emit(state.copyWith(status: RecoverySecretStatus.loading));
 
     try {
-      await _verifyRecoveryCodeUseCase(state.email, state.password, state.code);
-      emit(state.copyWith(status: RecoverySecretStatus.success));
+      final String recoveryToken = await _verifyRecoveryCodeUseCase(state.email, state.password, state.code);
+      emit(state.copyWith(
+        status: RecoverySecretStatus.success,
+        recoveryToken: recoveryToken,
+      ));
     } on AppException catch (e) {
       emit(state.copyWith(
         status: RecoverySecretStatus.failure,

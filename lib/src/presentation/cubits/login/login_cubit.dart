@@ -17,6 +17,10 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(password: value));
   }
 
+  void setRecoveryToken(String token) {
+    emit(state.copyWith(recoveryToken: token));
+  }
+
   Future<void> login() async {
     if (!state.isValid) {
       emit(state.copyWith(
@@ -29,10 +33,15 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(status: LoginStatus.loading));
 
     try {
-      final user = await _loginUseCase.execute(state.email, state.password);
+      final user = await _loginUseCase.execute(
+        state.email, 
+        state.password, 
+        recoveryToken: state.recoveryToken,
+      );
       emit(state.copyWith(
         status: LoginStatus.success,
         user: user,
+        recoveryToken: null,
       ));
     } catch (e) {
       bool needsRecovery = e is InvalidTOTPException;

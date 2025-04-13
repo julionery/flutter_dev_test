@@ -26,5 +26,6 @@
     "pageRecoverySecretTitle": "Verificação",
     "pageRecoverySecretDescription": "Insira o código que foi enviado:",
     "recoveryCodeResent": "Código reenviado com sucesso!",
-    "errorRecoveryCodeInvalid": "Código de verificação inválido"
+    "errorRecoveryCodeInvalid": "Código inválido",
+    "recoveryCodeSuccessful": "Código recuperado com sucesso"
 }

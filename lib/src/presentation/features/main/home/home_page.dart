@@ -8,11 +8,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        S.current.home.toLowerCase(),
-        style: AppTypography.labelLarge.copyWith(
-          color: AppColors.textSecondary,
+    return SafeArea(
+      child: Center(
+        child: Text(
+          S.current.home.toLowerCase(),
+          style: AppTypography.labelLarge.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
       ),
     );

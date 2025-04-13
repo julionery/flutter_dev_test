@@ -52,7 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Usuário não encontrado",
     ),
     "errorRecoveryCodeInvalid": MessageLookupByLibrary.simpleMessage(
-      "Código de verificação inválido",
+      "Código inválido",
     ),
     "errorUnknownError": MessageLookupByLibrary.simpleMessage(
       "Erro desconhecido",
@@ -85,6 +85,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "recoveryCodeResent": MessageLookupByLibrary.simpleMessage(
       "Código reenviado com sucesso!",
+    ),
+    "recoveryCodeSuccessful": MessageLookupByLibrary.simpleMessage(
+      "Código recuperado com sucesso",
     ),
     "resendCodeButtonText": MessageLookupByLibrary.simpleMessage(
       "Não recebi o código",

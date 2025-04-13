@@ -49,7 +49,7 @@ class _RecoverySecretViewState extends State<RecoverySecretView> with SingleTick
       listenWhen: (previous, current) => previous.status != current.status || previous.resendCodeSuccess != current.resendCodeSuccess,
       listener: (context, state) {
         if (state.status == RecoverySecretStatus.success) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(state.recoveryToken);
         } else if (state.status == RecoverySecretStatus.failure) {
           AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorUnknownError);
         }

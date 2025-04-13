@@ -6,6 +6,7 @@ enum LoginStatus { initial, loading, success, failure }
 class LoginState extends Equatable {
   final String email;
   final String password;
+  final String? recoveryToken;
   final LoginStatus status;
   final String? errorMessage;
   final UserEntity? user;
@@ -14,6 +15,7 @@ class LoginState extends Equatable {
   const LoginState({
     this.email = '',
     this.password = '',
+    this.recoveryToken,
     this.status = LoginStatus.initial,
     this.errorMessage,
     this.user,
@@ -25,6 +27,7 @@ class LoginState extends Equatable {
   LoginState copyWith({
     String? email,
     String? password,
+    String? recoveryToken,
     LoginStatus? status,
     String? errorMessage,
     UserEntity? user,
@@ -33,6 +36,7 @@ class LoginState extends Equatable {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
+      recoveryToken: recoveryToken ?? this.recoveryToken,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       user: user ?? this.user,
@@ -41,5 +45,5 @@ class LoginState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [email, password, status, errorMessage, user, needsRecoverySecret];
+  List<Object?> get props => [email, password, recoveryToken, status, errorMessage, user, needsRecoverySecret];
 }

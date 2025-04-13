@@ -10,9 +10,9 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<UserEntity> login(String email, String password) async {
+  Future<UserEntity> login(String email, String password, {String? totpCode}) async {
     try {
-      final userModel = await remoteDataSource.login(email, password);
+      final userModel = await remoteDataSource.login(email, password, totpCode: totpCode);
       return userModel;
     } on UnauthorizedException catch (e) {
       if (e.isInvalidTotp) {

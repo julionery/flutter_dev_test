@@ -6,6 +6,7 @@ class RecoverySecretState extends Equatable {
   final String code;
   final String email;
   final String password;
+  final String recoveryToken;
   final RecoverySecretStatus status;
   final String? errorMessage;
   final bool canResendCode;
@@ -15,6 +16,7 @@ class RecoverySecretState extends Equatable {
     this.code = '',
     this.email = '',
     this.password = '',
+    this.recoveryToken = '',
     this.status = RecoverySecretStatus.initial,
     this.errorMessage,
     this.canResendCode = true,
@@ -27,6 +29,7 @@ class RecoverySecretState extends Equatable {
     String? code,
     String? email,
     String? password,
+    String? recoveryToken,
     RecoverySecretStatus? status,
     String? errorMessage,
     bool? canResendCode,
@@ -36,6 +39,7 @@ class RecoverySecretState extends Equatable {
       code: code ?? this.code,
       email: email ?? this.email,
       password: password ?? this.password,
+      recoveryToken: recoveryToken ?? this.recoveryToken,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       canResendCode: canResendCode ?? this.canResendCode,
@@ -44,5 +48,5 @@ class RecoverySecretState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [code, email, password, status, errorMessage, canResendCode, resendCodeSuccess];
+  List<Object?> get props => [code, email, password, recoveryToken, status, errorMessage, canResendCode, resendCodeSuccess];
 }
