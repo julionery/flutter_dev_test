@@ -1,15 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dev_test/generated/l10n.dart';
 import 'package:flutter_dev_test/src/core/utils/exceptions/app_exceptions.dart';
 import 'package:flutter_dev_test/src/domain/usecases/resend_recovery_code_usecase.dart';
 import 'package:flutter_dev_test/src/domain/usecases/verify_recovery_code_usecase.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/recovery_secret/recovery_secret_state.dart';
 
+const kKeyErrorRecoveryCodeInvalid = 'errorRecoveryCodeInvalid';
+const kKeyErrorUnknownError = 'errorUnknownError';
+
 class RecoverySecretCubit extends Cubit<RecoverySecretState> {
+  final String Function(String key) _translate;
+
   final VerifyRecoveryCodeUseCase _verifyRecoveryCodeUseCase;
   final ResendRecoveryCodeUseCase _resendRecoveryCodeUseCase;
 
-  RecoverySecretCubit({
+  RecoverySecretCubit(
+    this._translate, {
     required VerifyRecoveryCodeUseCase verifyRecoveryCodeUseCase,
     required ResendRecoveryCodeUseCase resendRecoveryCodeUseCase,
     String email = '',
@@ -33,7 +38,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
   Future<void> submitCode() async {
     if (!state.isValid) {
       emit(state.copyWith(
-        errorMessage: S.current.errorRecoveryCodeInvalid,
+        errorMessage: _translate(kKeyErrorRecoveryCodeInvalid),
         status: RecoverySecretStatus.failure,
       ));
       return;
@@ -55,7 +60,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
     } catch (e) {
       emit(state.copyWith(
         status: RecoverySecretStatus.failure,
-        errorMessage: S.current.errorUnknownError,
+        errorMessage: _translate(kKeyErrorUnknownError),
       ));
     }
   }
@@ -77,7 +82,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
     } catch (e) {
       emit(state.copyWith(
         status: RecoverySecretStatus.failure,
-        errorMessage: S.current.errorUnknownError,
+        errorMessage: _translate(kKeyErrorUnknownError),
       ));
     }
   }

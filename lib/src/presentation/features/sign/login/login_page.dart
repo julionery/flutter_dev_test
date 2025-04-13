@@ -22,7 +22,10 @@ class LoginPage extends StatelessWidget {
     final serviceLocator = ServiceLocator();
 
     return BlocProvider(
-      create: (_) => LoginCubit(serviceLocator.loginUseCase),
+      create: (_) => LoginCubit(
+        (key) => key == kKeyLoginErrorEmptyFields ? S.current.loginErrorEmptyFields : '',
+        serviceLocator.loginUseCase,
+      ),
       child: const LoginView(),
     );
   }

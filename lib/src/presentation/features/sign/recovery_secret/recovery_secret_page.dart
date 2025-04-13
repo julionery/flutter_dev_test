@@ -28,6 +28,11 @@ class RecoverySecretPage extends StatelessWidget {
     final serviceLocator = ServiceLocator();
     return BlocProvider(
       create: (_) => RecoverySecretCubit(
+        (key) => switch (key) {
+          (kKeyErrorRecoveryCodeInvalid) => S.current.errorRecoveryCodeInvalid,
+          (kKeyErrorUnknownError) => S.current.errorUnknownError,
+          String() => '',
+        },
         verifyRecoveryCodeUseCase: serviceLocator.verifyRecoveryCodeUseCase,
         resendRecoveryCodeUseCase: serviceLocator.resendRecoveryCodeUseCase,
         email: email,

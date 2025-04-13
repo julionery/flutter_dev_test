@@ -1,13 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dev_test/generated/l10n.dart';
 import 'package:flutter_dev_test/src/core/utils/exceptions/app_exceptions.dart';
 import 'package:flutter_dev_test/src/domain/usecases/login_usecase.dart';
 import 'package:flutter_dev_test/src/presentation/cubits/login/login_state.dart';
 
+const kKeyLoginErrorEmptyFields = 'loginErrorEmptyFields';
+
 class LoginCubit extends Cubit<LoginState> {
+  final String Function(String key) _translate;
+
   final LoginUseCase _loginUseCase;
 
-  LoginCubit(this._loginUseCase) : super(const LoginState());
+  LoginCubit(this._translate, this._loginUseCase) : super(const LoginState());
 
   void emailChanged(String value) {
     emit(state.copyWith(email: value));
@@ -24,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login() async {
     if (!state.isValid) {
       emit(state.copyWith(
-        errorMessage: S.current.loginErrorEmptyFields,
+        errorMessage: _translate(kKeyLoginErrorEmptyFields),
         status: LoginStatus.failure,
       ));
       return;
@@ -34,8 +37,8 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       final user = await _loginUseCase.execute(
-        state.email, 
-        state.password, 
+        state.email,
+        state.password,
         recoveryToken: state.recoveryToken,
       );
       emit(state.copyWith(
