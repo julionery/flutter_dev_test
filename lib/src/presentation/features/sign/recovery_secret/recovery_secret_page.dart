@@ -16,7 +16,7 @@ import 'package:flutter_dev_test/src/presentation/widgets/text_field/app_otp_tex
 class RecoverySecretPage extends StatelessWidget {
   final String email;
   final String password;
-  
+
   const RecoverySecretPage({
     super.key,
     required this.email,
@@ -27,9 +27,12 @@ class RecoverySecretPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final serviceLocator = ServiceLocator();
     return BlocProvider(
-      create: (_) => serviceLocator.recoverySecretCubit
-        ..emailChanged(email)
-        ..passwordChanged(password),
+      create: (_) => RecoverySecretCubit(
+        verifyRecoveryCodeUseCase: serviceLocator.verifyRecoveryCodeUseCase,
+        resendRecoveryCodeUseCase: serviceLocator.resendRecoveryCodeUseCase,
+        email: email,
+        password: password,
+      ),
       child: const RecoverySecretView(),
     );
   }
@@ -49,14 +52,17 @@ class _RecoverySecretViewState extends State<RecoverySecretView> with SingleTick
       listenWhen: (previous, current) => previous.status != current.status || previous.resendCodeSuccess != current.resendCodeSuccess,
       listener: (context, state) {
         if (state.status == RecoverySecretStatus.success) {
-          Navigator.of(context).pop(state.recoveryToken);
+          final token = state.recoveryToken;
+          Navigator.of(context).pop(token);
         } else if (state.status == RecoverySecretStatus.failure) {
           AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorUnknownError);
         }
 
         if (state.resendCodeSuccess) {
           AppSnackBar.showSuccess(context, S.of(context).recoveryCodeResent);
-          context.read<RecoverySecretCubit>().resetState();
+          if (context.mounted) {
+            context.read<RecoverySecretCubit>().resetState();
+          }
         }
       },
       child: Scaffold(

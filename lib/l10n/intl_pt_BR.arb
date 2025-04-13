@@ -14,7 +14,7 @@
     "errorValidatorPasswordLeastSix": "A senha deve ter no mínimo 6 caracteres",
     "errorLoginInvalidCredentials": "Credenciais inválidas",
     "errorLoginInvalidTotp": "Código de verificação inválido",
-    "errorLoginInvalidRecoveryCode": "Código de recuperação inválido",
+    "errorLoginInvalidRecoveryCode": "Código inválido",
     "errorLoginUserNotFound": "Usuário não encontrado",
     "errorLoginFailed": "Erro ao acessar. Tente novamente.",
     "loginButtonForgotPassword": "Esqueci a senha",

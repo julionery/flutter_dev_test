@@ -6,7 +6,6 @@ import 'package:flutter_dev_test/src/domain/repositories/auth_repository.dart';
 import 'package:flutter_dev_test/src/domain/usecases/login_usecase.dart';
 import 'package:flutter_dev_test/src/domain/usecases/resend_recovery_code_usecase.dart';
 import 'package:flutter_dev_test/src/domain/usecases/verify_recovery_code_usecase.dart';
-import 'package:flutter_dev_test/src/presentation/cubits/recovery_secret/recovery_secret_cubit.dart';
 import 'package:http/http.dart' as http;
 
 class ServiceLocator {
@@ -34,12 +33,6 @@ class ServiceLocator {
   late final VerifyRecoveryCodeUseCase _verifyRecoveryCodeUseCase = VerifyRecoveryCodeUseCase(_authRepository);
   late final ResendRecoveryCodeUseCase _resendRecoveryCodeUseCase = ResendRecoveryCodeUseCase(_authRepository);
 
-  // Cubits
-  late final RecoverySecretCubit _recoverySecretCubit = RecoverySecretCubit(
-    verifyRecoveryCodeUseCase: _verifyRecoveryCodeUseCase,
-    resendRecoveryCodeUseCase: _resendRecoveryCodeUseCase,
-  );
-
   // Getters
   http.Client get httpClient => _httpClient;
   AuthRemoteDataSource get authRemoteDataSource => _authRemoteDataSource;
@@ -47,7 +40,6 @@ class ServiceLocator {
   LoginUseCase get loginUseCase => _loginUseCase;
   VerifyRecoveryCodeUseCase get verifyRecoveryCodeUseCase => _verifyRecoveryCodeUseCase;
   ResendRecoveryCodeUseCase get resendRecoveryCodeUseCase => _resendRecoveryCodeUseCase;
-  RecoverySecretCubit get recoverySecretCubit => _recoverySecretCubit;
 
   // Initialize services
   void init() {}

@@ -43,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Credenciais inválidas",
     ),
     "errorLoginInvalidRecoveryCode": MessageLookupByLibrary.simpleMessage(
-      "Código de recuperação inválido",
+      "Código inválido",
     ),
     "errorLoginInvalidTotp": MessageLookupByLibrary.simpleMessage(
       "Código de verificação inválido",
