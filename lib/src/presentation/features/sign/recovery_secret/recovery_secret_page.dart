@@ -14,13 +14,22 @@ import 'package:flutter_dev_test/src/presentation/widgets/snack_bars/app_snack_b
 import 'package:flutter_dev_test/src/presentation/widgets/text_field/app_otp_text_field.dart';
 
 class RecoverySecretPage extends StatelessWidget {
-  const RecoverySecretPage({super.key});
+  final String email;
+  final String password;
+  
+  const RecoverySecretPage({
+    super.key,
+    required this.email,
+    required this.password,
+  });
 
   @override
   Widget build(BuildContext context) {
     final serviceLocator = ServiceLocator();
     return BlocProvider(
-      create: (_) => serviceLocator.recoverySecretCubit,
+      create: (_) => serviceLocator.recoverySecretCubit
+        ..emailChanged(email)
+        ..passwordChanged(password),
       child: const RecoverySecretView(),
     );
   }

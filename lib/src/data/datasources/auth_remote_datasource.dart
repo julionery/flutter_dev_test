@@ -4,6 +4,6 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> login(String email, String password);
   Future<void> logout();
   Future<UserModel?> getCurrentUser();
-  Future<String> verifyRecoveryCode(String code);
+  Future<String> verifyRecoveryCode(String email, String password, String code);
   Future<void> resendRecoveryCode();
 }

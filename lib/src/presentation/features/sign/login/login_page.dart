@@ -60,8 +60,12 @@ class _LoginViewState extends State<LoginView> {
           );
         } else if (state.status == LoginStatus.failure) {
           if (state.needsRecoverySecret) {
+            final email = _emailController.text;
+            final password = _passwordController.text;
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const RecoverySecretPage()),
+              MaterialPageRoute(
+                builder: (context) => RecoverySecretPage(email: email, password: password),
+              ),
             );
           } else {
             AppSnackBar.showError(context, state.errorMessage ?? S.of(context).errorLoginFailed);

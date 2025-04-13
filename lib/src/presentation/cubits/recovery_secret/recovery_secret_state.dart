@@ -4,6 +4,8 @@ enum RecoverySecretStatus { initial, loading, success, failure }
 
 class RecoverySecretState extends Equatable {
   final String code;
+  final String email;
+  final String password;
   final RecoverySecretStatus status;
   final String? errorMessage;
   final bool canResendCode;
@@ -11,6 +13,8 @@ class RecoverySecretState extends Equatable {
 
   const RecoverySecretState({
     this.code = '',
+    this.email = '',
+    this.password = '',
     this.status = RecoverySecretStatus.initial,
     this.errorMessage,
     this.canResendCode = true,
@@ -21,6 +25,8 @@ class RecoverySecretState extends Equatable {
 
   RecoverySecretState copyWith({
     String? code,
+    String? email,
+    String? password,
     RecoverySecretStatus? status,
     String? errorMessage,
     bool? canResendCode,
@@ -28,6 +34,8 @@ class RecoverySecretState extends Equatable {
   }) {
     return RecoverySecretState(
       code: code ?? this.code,
+      email: email ?? this.email,
+      password: password ?? this.password,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       canResendCode: canResendCode ?? this.canResendCode,
@@ -36,5 +44,5 @@ class RecoverySecretState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [code, status, errorMessage, canResendCode, resendCodeSuccess];
+  List<Object?> get props => [code, email, password, status, errorMessage, canResendCode, resendCodeSuccess];
 }

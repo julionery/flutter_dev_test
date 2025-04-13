@@ -12,12 +12,22 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
   RecoverySecretCubit({
     required VerifyRecoveryCodeUseCase verifyRecoveryCodeUseCase,
     required ResendRecoveryCodeUseCase resendRecoveryCodeUseCase,
-  }) : _verifyRecoveryCodeUseCase = verifyRecoveryCodeUseCase,
-       _resendRecoveryCodeUseCase = resendRecoveryCodeUseCase,
-       super(const RecoverySecretState());
+    String email = '',
+    String password = '',
+  })  : _verifyRecoveryCodeUseCase = verifyRecoveryCodeUseCase,
+        _resendRecoveryCodeUseCase = resendRecoveryCodeUseCase,
+        super(RecoverySecretState(email: email, password: password));
 
   void codeChanged(String value) {
     emit(state.copyWith(code: value));
+  }
+
+  void emailChanged(String value) {
+    emit(state.copyWith(email: value));
+  }
+
+  void passwordChanged(String value) {
+    emit(state.copyWith(password: value));
   }
 
   Future<void> submitCode() async {
@@ -32,7 +42,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
     emit(state.copyWith(status: RecoverySecretStatus.loading));
 
     try {
-      await _verifyRecoveryCodeUseCase(state.code);
+      await _verifyRecoveryCodeUseCase(state.email, state.password, state.code);
       emit(state.copyWith(status: RecoverySecretStatus.success));
     } on AppException catch (e) {
       emit(state.copyWith(
@@ -49,7 +59,7 @@ class RecoverySecretCubit extends Cubit<RecoverySecretState> {
 
   Future<void> resendCode() async {
     emit(state.copyWith(status: RecoverySecretStatus.loading));
-    
+
     try {
       await _resendRecoveryCodeUseCase();
       emit(state.copyWith(

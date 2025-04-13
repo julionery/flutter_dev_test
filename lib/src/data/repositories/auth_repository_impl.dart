@@ -56,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<String> verifyRecoveryCode(String code) async {
+  Future<String> verifyRecoveryCode(String email, String password, String code) async {
     try {
-      return await remoteDataSource.verifyRecoveryCode(code);
+      return await remoteDataSource.verifyRecoveryCode(email, password, code);
     } on UnauthorizedException catch (e) {
       if (e.isInvalidTotp) {
         throw InvalidTOTPException(S.current.errorLoginInvalidTotp);

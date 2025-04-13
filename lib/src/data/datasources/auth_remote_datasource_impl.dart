@@ -68,12 +68,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<String> verifyRecoveryCode(String code) async {
+  Future<String> verifyRecoveryCode(String email, String password, String code) async {
     try {
       final response = await client.post(
         Uri.parse('$baseUrl${ApiConstants.recoverySecretEndpoint}'),
         headers: ApiConstants.headers,
         body: jsonEncode({
+          'username': email,
+          'password': password,
           'code': code,
         }),
       );

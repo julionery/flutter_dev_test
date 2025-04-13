@@ -5,7 +5,7 @@ class VerifyRecoveryCodeUseCase {
 
   VerifyRecoveryCodeUseCase(this.repository);
 
-  Future<String> call(String code) async {
-    return await repository.verifyRecoveryCode(code);
+  Future<String> call(String email, String password, String code) async {
+    return await repository.verifyRecoveryCode(email, password, code);
   }
 }
