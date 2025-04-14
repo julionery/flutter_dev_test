@@ -14,26 +14,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final userModel = await remoteDataSource.login(email, password, totpCode: totpCode);
       return userModel;
-    } on UnauthorizedException catch (e) {
-      if (e.isInvalidTotp) {
-        throw InvalidTOTPException(S.current.errorLoginInvalidTotp);
-      } else if (e.isInvalidCredentials) {
-        throw AppException(S.current.errorLoginInvalidCredentials);
-      } else if (e.isInvalidRecoveryCode) {
-        throw AppException(S.current.errorLoginInvalidRecoveryCode);
-      } else {
-        throw AppException(e.message);
-      }
-    } on NotFoundException catch (e) {
-      if (e.isUserNotFound) {
-        throw AppException(S.current.errorLoginUserNotFound);
-      } else {
-        throw AppException(e.message);
-      }
-    } on ServerException catch (e) {
-      throw AppException(e.message);
     } catch (e) {
-      throw AppException('${S.current.errorLoginFailed}: ${e.toString()}');
+      throw _handleException(e);
     }
   }
 
@@ -42,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await remoteDataSource.logout();
     } catch (e) {
-      throw Exception('Failed to logout: ${e.toString()}');
+      throw _handleException(e);
     }
   }
 
@@ -51,7 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       return await remoteDataSource.getCurrentUser();
     } catch (e) {
-      return null;
+      throw _handleException(e);
     }
   }
 
@@ -59,31 +41,39 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<String> verifyRecoveryCode(String email, String password, String code) async {
     try {
       return await remoteDataSource.verifyRecoveryCode(email, password, code);
-    } on UnauthorizedException catch (e) {
-      if (e.isInvalidTotp) {
-        throw InvalidTOTPException(S.current.errorLoginInvalidTotp);
-      } else if (e.isInvalidCredentials) {
-        throw AppException(S.current.errorLoginInvalidCredentials);
-      } else if (e.isInvalidRecoveryCode) {
-        throw AppException(S.current.errorLoginInvalidRecoveryCode);
-      } else {
-        throw AppException(e.message);
-      }
-    } on NotFoundException catch (e) {
-      if (e.isUserNotFound) {
-        throw AppException(S.current.errorLoginUserNotFound);
-      } else {
-        throw AppException(e.message);
-      }
-    } on ServerException catch (e) {
-      throw AppException(e.message);
     } catch (e) {
-      throw AppException(S.current.errorUnknownError);
+      throw _handleException(e);
     }
   }
 
   @override
   Future<void> resendRecoveryCode() async {
     await remoteDataSource.resendRecoveryCode();
+  }
+
+  /// Centralizes exception handling logic for both login and verification methods
+  /// Returns the appropriate exception based on the error type
+  Exception _handleException(dynamic e) {
+    if (e is UnauthorizedException) {
+      if (e.isInvalidTotp) {
+        return InvalidTOTPException(S.current.errorLoginInvalidTotp);
+      } else if (e.isInvalidCredentials) {
+        return AppException(S.current.errorLoginInvalidCredentials);
+      } else if (e.isInvalidRecoveryCode) {
+        return AppException(S.current.errorLoginInvalidRecoveryCode);
+      } else {
+        return AppException(e.message);
+      }
+    } else if (e is NotFoundException) {
+      if (e.isUserNotFound) {
+        return AppException(S.current.errorLoginUserNotFound);
+      } else {
+        return AppException(e.message);
+      }
+    } else if (e is ServerException) {
+      return AppException(e.message);
+    } else {
+      return AppException(S.current.errorUnknownError);
+    }
   }
 }

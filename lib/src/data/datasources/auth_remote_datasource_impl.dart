@@ -32,28 +32,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.statusCode == 200) {
         return UserModel(id: '', name: 'Júlio Nery', email: email);
       } else {
-        final Map<String, dynamic> errorData = {};
-
-        if (response.body.isNotEmpty) {
-          errorData.addAll(jsonDecode(response.body));
-        }
-
-        final String errorMessage = errorData['message'] ?? S.current.errorUnknownError;
-        final String? errorCode = errorData['errorCode'];
-
-        if (response.statusCode == 401) {
-          throw UnauthorizedException(errorMessage, errorCode: errorCode);
-        } else if (response.statusCode == 404) {
-          throw NotFoundException(errorMessage, errorCode: errorCode);
-        } else {
-          throw ServerException(errorMessage);
-        }
+        _handleErrorResponse(response);
+        throw ServerException(S.current.errorUnknownError);
       }
     } catch (e) {
-      if (e is UnauthorizedException || e is NotFoundException || e is ServerException) {
-        rethrow;
-      }
-      throw ServerException(S.current.errorFailedToConnectToServer);
+      _handleException(e);
+      throw ServerException(S.current.errorUnknownError);
     }
   }
 
@@ -84,33 +68,46 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         final data = jsonDecode(response.body);
         return data['totp_secret'];
       } else {
-        final Map<String, dynamic> errorData = {};
-
-        if (response.body.isNotEmpty) {
-          errorData.addAll(jsonDecode(response.body));
-        }
-
-        final String errorMessage = errorData['message'] ?? S.current.errorUnknownError;
-        final String? errorCode = errorData['errorCode'];
-
-        if (response.statusCode == 401) {
-          throw UnauthorizedException(errorMessage, errorCode: errorCode);
-        } else if (response.statusCode == 404) {
-          throw NotFoundException(errorMessage, errorCode: errorCode);
-        } else {
-          throw ServerException(errorMessage);
-        }
+        _handleErrorResponse(response);
+        throw ServerException(S.current.errorUnknownError);
       }
     } catch (e) {
-      if (e is UnauthorizedException || e is NotFoundException || e is ServerException) {
-        rethrow;
-      }
-      throw ServerException(S.current.errorFailedToConnectToServer);
+      _handleException(e);
+      throw ServerException(S.current.errorUnknownError);
     }
   }
 
   @override
   Future<void> resendRecoveryCode() async {
     return;
+  }
+
+  void _handleErrorResponse(http.Response response) {
+    final Map<String, dynamic> errorData = {};
+
+    if (response.body.isNotEmpty) {
+      try {
+        errorData.addAll(jsonDecode(response.body));
+      } catch (_) {}
+    }
+
+    final String errorMessage = errorData['message'] ?? S.current.errorUnknownError;
+    final String? errorCode = errorData['errorCode'];
+
+    switch (response.statusCode) {
+      case 401:
+        throw UnauthorizedException(errorMessage, errorCode: errorCode);
+      case 404:
+        throw NotFoundException(errorMessage, errorCode: errorCode);
+      default:
+        throw ServerException(errorMessage);
+    }
+  }
+
+  void _handleException(dynamic exception) {
+    if (exception is UnauthorizedException || exception is NotFoundException || exception is ServerException) {
+      throw exception;
+    }
+    throw ServerException(S.current.errorFailedToConnectToServer);
   }
 }

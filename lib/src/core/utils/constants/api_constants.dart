@@ -2,7 +2,7 @@ class ApiConstants {
   ApiConstants._();
 
   // Base URL
-  static const String baseUrl = 'http://10.0.2.2:5000';
+  static const String baseUrl = 'http://127.0.0.1:5000';
 
   // Endpoints
   static const String loginEndpoint = '/auth/login';

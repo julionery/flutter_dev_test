@@ -71,9 +71,9 @@ class _LoginViewState extends State<LoginView> {
           }
         }
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Center(
+      child: SafeArea(
+        child: Scaffold(
+          body: Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.only(bottom: AppSpacing.$800),
               child: Column(
@@ -105,8 +105,8 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
           ),
+          bottomNavigationBar: _buildForgotPasswordButton(),
         ),
-        bottomNavigationBar: _buildForgotPasswordButton(),
       ),
     );
   }
@@ -219,9 +219,14 @@ class _LoginViewState extends State<LoginView> {
     if (recoveryToken != null && recoveryToken.isNotEmpty) {
       if (context.mounted) {
         context.read<LoginCubit>().setRecoveryToken(recoveryToken);
-        AppSnackBar.showSuccess(context, S.of(context).recoveryCodeSuccessful);
         _passwordFocusNode.unfocus();
-        context.read<LoginCubit>().login();
+
+        // Suggested improvements:
+        // Show the successful snack bar.
+        // Try logging in again without the user having to click
+        //
+        // AppSnackBar.showSuccess(context, S.of(context).recoveryCodeSuccessful);
+        // context.read<LoginCubit>().login();
       }
     }
   }
