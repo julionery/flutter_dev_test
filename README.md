@@ -95,7 +95,7 @@ Utilizado no tratamento de erros e validações.
 
 1. Clone o repositório:
 ```bash
-git clone [repository_url]
+git clone https://github.com/julionery/flutter_dev_test.git
 ```
 
 2. Instale as dependências:
